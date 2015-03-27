@@ -43,14 +43,14 @@ canvas{
 #clip.ani{
     left:110px;
     top:260px;
-    width:352.8px;
-    height:388.2px;
+    width:353px;
+    height:388px;
     background-color:transparent;
-    background-image:url(../images/bg-cap.png);
-    background-size:cover;
-    -o-background-size:cover;
-    -moz-background-size:cover;
-    -webkit-background-size:cover;
+    background:url(../images/bg-cap.png) no-repeat bottom;
+    background-size:contain;
+    -o-background-size:contain;
+    -moz-background-size:contain;
+    -webkit-background-size:contain;
 
     transform:rotate(-23deg);
     -ms-transform: rotate(-23deg);
