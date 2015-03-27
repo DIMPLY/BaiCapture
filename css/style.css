@@ -1,0 +1,128 @@
+*{
+    margin:0;
+    padding:0;
+}
+button:focus{
+    outline:none;
+}
+body{
+    width:100%;
+    height:1062px;
+    background-size:cover;
+    background-repeat:no-repeat;
+    background-color:rgb(194,229,241);
+}
+section{
+    width:100%;height:100%;
+}
+canvas{
+    width:100%;height:100%;
+    background: transparent;
+}
+#transp{
+    position:absolute;
+    margin:802px auto auto -81px;
+    border:none;
+    width:162px;
+    height:128px;
+    left:50%;
+    top:0;
+    background: transparent;
+}
+#clip{
+    position:absolute;
+    left:26px;
+    top:150px;
+    width:588px;
+    height:647px;
+    transition:1s ease;
+    -o-transition: 1s ease;
+    -webkit-transition: 1s ease;
+    -moz-transition: 1s ease;
+}
+#clip.ani{
+    left:110px;
+    top:260px;
+    width:352.8px;
+    height:388.2px;
+    background-color:transparent;
+    background-image:url(../images/bg-cap.png);
+    background-size:cover;
+    -o-background-size:cover;
+    -moz-background-size:cover;
+    -webkit-background-size:cover;
+
+    transform:rotate(-23deg);
+    -ms-transform: rotate(-23deg);
+    -o-transform: rotate(-23deg);
+    -webkit-transform: rotate(-23deg);
+    -moz-transform: rotate(-23deg);
+    /*box-shadow:2px 4px gray;*/
+    /*-moz-box-shadow:2px 4px gray;*/
+    /*-o-box-shadow:2px 4px gray;*/
+    /*-webkit-box-shadow:2px 4px gray;*/
+}
+#info,#arrow,.score,.again{
+    position:absolute;
+    transition:1s ease;
+    -o-transition: 1s ease;
+    -webkit-transition: 1s ease;
+    -moz-transition: 1s ease;
+}
+#info{
+    top:60px;
+    left:0;
+}
+#arrow{
+    top:30px;
+    left:500px;
+}
+.score{
+    top:650px;
+    left:310px;
+    font-size:100px;
+    color:rgb(211,30,118);
+    transform:rotate(-8deg);
+    -moz-transform:rotate(-8deg);
+    -ms-transform:rotate(-8deg);
+    -webkit-transform:rotate(-8deg);
+    -o-transform:rotate(-8deg);
+}
+.score #score{
+    position:absolute;
+    transform:rotate(8deg);
+    -o-transform:rotate(8deg);
+    -ms-transform:rotate(8deg);
+    -moz-transform:rotate(8deg);
+    -webkit-transform:rotate(8deg);
+    top:100px;
+}
+button.again{
+    top:850px;
+    left:200px;
+    border:none;
+    background:transparent;
+}
+section.enter{
+    background:url(../images/cover1.png) center 2% no-repeat, url(../images/cover2.png) center 61% no-repeat;
+}
+section.enter button{
+    border:none;
+    background: transparent;
+    margin:0 auto;
+    position:relative;
+    top:810px;
+    display: block;
+}
+#mask{
+    background:url(../images/mask2.png) center 150px no-repeat, url(../images/mask1.jpg) 0 0 repeat;
+    position:absolute;
+    top:0;
+    left:0;
+    width:640px;
+    height:1140px;
+}
+#mask>a{
+    display: table;
+    margin:800px auto;
+}
