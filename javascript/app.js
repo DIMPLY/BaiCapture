@@ -54,6 +54,7 @@ angular.module('Bai',['ngRoute'])
                 $scope.mask=false;
                 document.getElementsByTagName('body')[0].style.backgroundImage
                     = 'url('+pwd+'images/bg.jpg)';
+                //TODO: can this below be more concise by using prototype?
                 function oneMoreImg(){
                     $scope.sh++;
                     $scope.$apply();
@@ -117,13 +118,13 @@ angular.module('Bai',['ngRoute'])
                 cross.src = pwd + "images/cross.png";
                 cross.onload = oneMoreImg;
                 cross.crossOrigin = 'Anonymous';
+                //TODO END
             },
             controllerAs:'enter'
         })
        .when('/game', {
             templateUrl:'templates/game.html',
             controller:function(imgDrawer,$scope,$compile){
-                getRecord();
                 this.pwd = pwd;
                 var game = this;
                 var width = canvas.clientWidth;
