@@ -34,10 +34,10 @@ angular.module('Bai',['ngRoute'])
             // for the background redraw (bg, capture area, camera and cross)
             redrawBg:function(){
                 this.clear();
-                this.draw(gbg,0,0);
-                this.draw(capture,96,220);
-                this.draw(camera,239,800);
-                this.draw(cross,288,411);
+                this.draw(gbg.prototype,0,0);
+                this.draw(capture.prototype,96,220);
+                this.draw(camera.prototype,239,800);
+                this.draw(cross.prototype,288,411);
             },
             //clip: return the base64 code of the whole canvas
             clip:function(){
@@ -55,69 +55,36 @@ angular.module('Bai',['ngRoute'])
                 document.getElementsByTagName('body')[0].style.backgroundImage
                     = 'url('+pwd+'images/bg.jpg)';
                 //TODO: can this below be more concise by using prototype?
-                function oneMoreImg(){
-                    $scope.sh++;
-                    $scope.$apply();
-                }
                 $scope.pwd = pwd;
                 $scope.sh = 0;
-                coin = new Image();
-                capture = new Image();
-                coin.src = pwd+"images/coin.png";
-                coin.onload = oneMoreImg;
-                coin.crossOrigin = 'Anonymous';
-                capture.src = pwd+"images/capture.png";
-                capture.onload = oneMoreImg;
-                capture.crossOrigin = 'Anonymous';
-                gbg = new Image();
-                gbg.src = pwd+"images/gbg.jpg";
-                gbg.onload = oneMoreImg;
-                gbg.crossOrigin = 'Anonymous';
-                camera = new Image();
-                camera.src = pwd+"images/camera.png";
-                camera.onload = oneMoreImg;
-                camera.crossOrigin = 'Anonymous';
-                n1 = new Image();
-                n1.src = pwd+"images/11.png";
-                n1.onload = oneMoreImg;
-                n1.crossOrigin = 'Anonymous';
-                n2 = new Image();
-                n2.src = pwd+"images/12.png";
-                n2.onload = oneMoreImg;
-                n2.crossOrigin = 'Anonymous';
-                n3 = new Image();
-                n3.src = pwd+"images/13.png";
-                n3.onload = oneMoreImg;
-                n3.crossOrigin = 'Anonymous';
-                bai = [new Image(),new Image()];
-                bai[0].src = pwd+"images/bai1.png";
-                bai[0].onload = oneMoreImg;
-                bai[0].crossOrigin = 'Anonymous';
-                bai[1].src = pwd+"images/bai2.png";
-                bai[1].onload = oneMoreImg;
-                bai[1].crossOrigin = 'Anonymous';
-                again = new Image();
-                again.src = pwd + "images/again.png";
-                again.onload = oneMoreImg;
-                again.id = 'again';
-                info = new Image();
-                info.src = pwd + "images/info-forward.jpg";
-                info.onload = oneMoreImg;
-                info.id = 'info';
-                arrow = new Image();
-                arrow.src = pwd + "images/arrow-forward.png";
-                arrow.onload = oneMoreImg;
-                arrow.id = 'arrow';
-                score = new Image();
-                score.src = pwd + "images/score.png";
-                score.onload = oneMoreImg;
-                score.id = 'score';
-                angular.element(score).wrap('<div class="score"></div>');
-                angular.element(again).wrap('<button ng-click="game.again()" class="again"></button>');
-                cross = new Image();
-                cross.src = pwd + "images/cross.png";
-                cross.onload = oneMoreImg;
-                cross.crossOrigin = 'Anonymous';
+                preImage = function(str){
+                    this.prototype = new Image();
+                    this.prototype.onload = function(){
+                        $scope.sh++;
+                        $scope.$apply();
+                    };
+                    this.prototype.crossOrigin = 'Anonymous';
+                    this.prototype.src = pwd+str;
+                };
+                coin = new preImage("images/coin.png");
+                capture = new preImage("images/capture.png");
+                gbg = new preImage("images/gbg.jpg");
+                camera = new preImage("images/camera.png");
+                n1 = new preImage("images/11.png");
+                n2 = new preImage("images/12.png");
+                n3 = new preImage("images/13.png");
+                bai = [new preImage("images/bai1.png"),new preImage("images/bai2.png")];
+                again = new preImage("images/again.png");
+                again.prototype.id = 'again';
+                info = new preImage("images/info-forward.jpg");
+                info.prototype.id = 'info';
+                arrow = new preImage("images/arrow-forward.png");
+                arrow.prototype.id = 'arrow';
+                score = new preImage("images/score.png");
+                score.prototype.id = 'score';
+                angular.element(score.prototype).wrap('<div class="score"></div>');
+                angular.element(again.prototype).wrap('<button ng-click="game.again()" class="again"></button>');
+                cross = new preImage("images/cross.png");
                 //TODO END
             },
             controllerAs:'enter'
@@ -130,7 +97,7 @@ angular.module('Bai',['ngRoute'])
                 var width = canvas.clientWidth;
                 var dropperOn,baiN,coinsXY,baiXY,clip;
                 var text = document.createTextNode('');
-                score.parentNode.appendChild(text);
+                score.prototype.parentNode.appendChild(text);
                 startGame = function(){
                     dropperOn = false;
                     baiN = Math.floor(Math.random()*2);
@@ -138,13 +105,13 @@ angular.module('Bai',['ngRoute'])
                     baiXY = {y:-300,x:width/2,deg:0};
                     imgDrawer.getCtx(canvas);
                     imgDrawer.redrawBg();
-                    imgDrawer.draw(n3,271.5,376);
+                    imgDrawer.draw(n3.prototype,271.5,376);
                     setTimeout(function() {
                         imgDrawer.redrawBg();
-                        imgDrawer.draw(n2,268,376.5);
+                        imgDrawer.draw(n2.prototype,268,376.5);
                         setTimeout(function() {
                             imgDrawer.redrawBg();
-                            imgDrawer.draw(n1,283.5,376.5);
+                            imgDrawer.draw(n1.prototype,283.5,376.5);
                             dropperOn = true;
                             setTimeout(function() {
                                 dropper();
@@ -157,13 +124,13 @@ angular.module('Bai',['ngRoute'])
                     //one loop
                     imgDrawer.redrawBg();
                     for(c in coinsXY){
-                        imgDrawer.draw(coin,coinsXY[c].x,coinsXY[c].y);
+                        imgDrawer.draw(coin.prototype,coinsXY[c].x,coinsXY[c].y);
                         coinsXY[c].y+=10;
                     }
-                    imgDrawer.drawRotated(bai[baiN],baiXY.x,baiXY.y,baiXY.deg);
+                    imgDrawer.drawRotated(bai[baiN].prototype,baiXY.x,baiXY.y,baiXY.deg);
                     baiXY.y+=8;
                     baiXY.deg+=7;
-                    imgDrawer.draw(camera,239,800);
+                    imgDrawer.draw(camera.prototype,239,800);
                     if(baiXY.y>1562){
                         game.end(0);
                         return;
@@ -208,11 +175,11 @@ angular.module('Bai',['ngRoute'])
 
                     //append others
                     text.data=num + '分';
-                    sec.appendChild(info);
-                    sec.appendChild(arrow);
-                    $compile(again.parentNode)($scope);
-                    sec.appendChild(again.parentNode);
-                    sec.appendChild(score.parentNode);
+                    sec.appendChild(info.prototype);
+                    sec.appendChild(arrow.prototype);
+                    $compile(again.prototype.parentNode)($scope);
+                    sec.appendChild(again.prototype.parentNode);
+                    sec.appendChild(score.prototype.parentNode);
 
                     //apply the transition class after 300ms
                     setTimeout(function(){
@@ -226,11 +193,11 @@ angular.module('Bai',['ngRoute'])
                     game.end(Math.round(100-dist*100/maxDist));
                 };
                 this.again = function(){
-                    angular.element(info).detach();
-                    angular.element(arrow).detach();
+                    angular.element(info.prototype).detach();
+                    angular.element(arrow.prototype).detach();
                     angular.element(clip).detach();
-                    angular.element(score.parentNode).detach();
-                    angular.element(again.parentNode).detach();
+                    angular.element(score.prototype.parentNode).detach();
+                    angular.element(again.prototype.parentNode).detach();
                     canvas.style.display='block';
                     startGame();
                 }
